@@ -1,0 +1,283 @@
+js assignment day-5 
+
+
+((((1))))
+
+
+1.Find if number is positive
+
+
+function isPositive(num) {
+
+    var result;
+
+    if (num >= 0) {
+        result = true;
+    } else if (num < 0) {
+        result = false;
+    }
+    return result;
+}
+
+var num;
+num = parseInt(prompt("Enter a number"));
+while (num != -1) {
+    alert(isPositive(num));
+
+    if (isNaN(num)) {
+        alert("No number entered. Try again");
+        num = parseInt(prompt("Enter a number"));
+        isPositive(num);
+        while (num != -1) {
+            alert(isPositive(num));
+        }
+    }
+}
+
+
+
+2.Make all numbers of an array equal
+
+
+#include <bits/stdc++.h> 
+
+using namespace std; 
+
+  
+// Function that returns true if all  
+// the array elements can be made equal 
+// with the given operation 
+
+bool EqualNumbers(int a[], int n) 
+{ 
+
+    for (int i = 0; i < n; i++) { 
+
+  
+
+        // Divide number by 2 
+
+        while (a[i] % 2 == 0) 
+
+            a[i] /= 2; 
+
+  
+
+        // Divide number by 3 
+
+        while (a[i] % 3 == 0) 
+
+            a[i] /= 3; 
+
+  
+
+        if (a[i] != a[0]) { 
+
+            return false; 
+
+        } 
+
+    } 
+
+  
+
+    return true; 
+} 
+
+  
+// Driver code 
+
+int main() 
+{ 
+
+    int a[] = { 50, 75, 150 }; 
+
+  
+
+    int n = sizeof(a) / sizeof(a[0]); 
+
+  
+
+    if (EqualNumbers(a, n)) 
+
+        cout << "Yes"; 
+
+    else
+
+        cout << "No"; 
+
+  
+
+    return 0; 
+} 
+ 
+Output:
+Yes
+
+
+
+
+3.Higher-Order Functions
+
+
+
+let total = 0, count = 1;
+while (count <= 10) {
+  total += count;
+  count += 1;
+}
+console.log(total);
+
+
+Abstracting repetition
+Plain functions, as we’ve seen them so far, are a good way to build abstractions. But sometimes they fall short.
+
+It is common for a program to do something a given number of times. You can write a for loop for that, like this:
+
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+}
+Can we abstract “doing something N times” as a function? Well, it’s easy to write a function that calls console.log N times.
+
+function repeatLog(n) {
+  for (let i = 0; i < n; i++) {
+    console.log(i);
+  }
+}
+But what if we want to do something other than logging the numbers? Since “doing something” can be represented as a function and functions are just values, we can pass our action as a function value.
+
+function repeat(n, action) {
+  for (let i = 0; i < n; i++) {
+    action(i);
+  }
+}
+
+repeat(3, console.log);
+// → 0
+// → 1
+// → 2
+We don’t have to pass a predefined function to repeat. Often, it is easier to create a function value on the spot instead.
+
+let labels = [];
+repeat(5, i => {
+  labels.push(`Unit ${i + 1}`);
+});
+console.log(labels);
+// → ["Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5"]
+This is structured a little like a for loop—it first describes the kind of loop and then provides a body. However, the body is now written as a function value, which is wrapped in the parentheses of the call to repeat. This is why it has to be closed with the closing brace and closing parenthesis. In cases like this example, where the body is a single small expression,  
+you could also omit the braces and write the loop on a single line.
+
+
+4.Sum of cubes of all Subsets of given Array
+
+
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+const int mod = 1e9 + 7; 
+  
+// Function to return (2^P % mod) 
+long long power(int p) 
+{ 
+    long long res = 1; 
+    for (int i = 1; i <= p; ++i) { 
+        res *= 2; 
+        res %= mod; 
+    } 
+    return res % mod; 
+} 
+  
+// Function to return 
+// the sum of cubes of subsets 
+long long subset_cube_sum(vector<int>& A) 
+{ 
+  
+    int n = (int)A.size(); 
+  
+    long long ans = 0; 
+  
+    // cubing the elements 
+    // and adding it to ans 
+    for (int i : A) { 
+        ans += (1LL * i * i * i) % mod; 
+        ans %= mod; 
+    } 
+  
+    return (1LL * ans * power(n - 1)) 
+           % mod; 
+} 
+  
+// Driver code 
+int main() 
+{ 
+    vector<int> A = { 1, 2 }; 
+  
+    cout << subset_cube_sum(A); 
+  
+    return 0; 
+} 
+Output:
+18
+
+
+
+(((((2))))
+
+Attributes and properties
+
+document.body.myData = {
+  name: 'Caesar',
+  title: 'Imperator'
+};
+
+alert(document.body.myData.title); // Imperator
+We can add a method as well:
+
+document.body.sayTagName = function() {
+  alert(this.tagName);
+};
+
+document.body.sayTagName(); // BODY (the value of "this" in the method is document.body)
+We can also modify built-in prototypes like Element.prototype and add new methods to all elements:
+
+Element.prototype.sayHi = function() {
+  alert(`Hello, I'm ${this.tagName}`);
+};
+
+document.documentElement.sayHi(); // Hello, I'm HTML
+document.body.sayHi(); // Hello, I'm BODY
+
+
+
+HTML attributes
+In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes standard attributes and creates DOM properties from them.
+
+So when an element has id or another standard attribute, the corresponding property gets created. But that doesn’t happen if the attribute is non-standard.
+
+For instance:
+
+
+
+
+
+
+<body id="test" something="non-standard">
+  <script>
+    alert(document.body.id); // test
+    // non-standard attribute does not yield a property
+    alert(document.body.something); // undefined
+  </script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
